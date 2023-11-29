@@ -9,6 +9,9 @@ def pascal_triangle(n):
     Generate Pascal's triangle up to n-th number of rows
     Returns: A list of lists representing Pascal's triangle
     """
+    if n <= 0:
+        return []
+    
     triangle = [[1]]
 
     for i in range(n - 1):
