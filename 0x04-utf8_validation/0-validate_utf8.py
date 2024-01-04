@@ -14,7 +14,6 @@ def validUTF8(data):
     Returns:
         True if the data is valid else False
     """
-
     def isContinue(byte):
         """
         Help check if a byte is a valid continuation byte
