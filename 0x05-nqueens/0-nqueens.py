@@ -24,9 +24,12 @@ def printer(board):
     """
     Prints the solution for current board
     """
-    for row, col in enumerate(board):
-        print("[{}, {}]".format(row, col), end=" ")
-    print()
+    print("[", end="")
+    for i, col in enumerate(board):
+        if i != 0:
+            print(", ", end="")
+        print("[{}, {}]".format(i, col), end="")
+    print("]")
 
 
 def nqueens_sol(board, row, n):
