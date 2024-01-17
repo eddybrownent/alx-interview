@@ -6,21 +6,34 @@ function getMovieCharacters (movieId) {
   const baseUrl = 'https://swapi-api.alx-tools.com/api/films/';
   const movieUrl = `${baseUrl}${movieId}/`;
 
-  request.get(movieUrl, (error, response, movieData) => {
-    if (error) {
-      return;
-    }
+  return new Promise((resolve, reject) => {
+    request.get(movieUrl, (error, response, movieData) => {
+      if (error) {
+        reject(error);
+        return;
+      }
 
-    const charactersUrlList = JSON.parse(movieData).characters;
+      const charactersUrlList = JSON.parse(movieData).characters;
+      const characterNames = [];
 
-    charactersUrlList.forEach(characterUrl => {
-      request.get(characterUrl, (error, response, characterData) => {
-        if (error) {
+      function fetchCharacter (index) {
+        if (index >= charactersUrlList.length) {
+          resolve(characterNames);
           return;
         }
 
-        console.log(JSON.parse(characterData).name);
-      });
+        const characterUrl = charactersUrlList[index];
+        request.get(characterUrl, (error, response, characterData) => {
+          if (error) {
+            reject(error);
+            return;
+          }
+
+          characterNames.push(JSON.parse(characterData).name);
+          fetchCharacter(index + 1);
+        });
+      }
+      fetchCharacter(0);
     });
   });
 }
@@ -28,4 +41,11 @@ function getMovieCharacters (movieId) {
 const args = process.argv.slice(2);
 
 const movieId = args[0];
-getMovieCharacters(movieId);
+
+getMovieCharacters(movieId)
+  .then(characterNames => {
+    characterNames.forEach((characterName, index) => {
+      console.log(`${characterName}`);
+    });
+  })
+  .catch(error => console.error(error));
