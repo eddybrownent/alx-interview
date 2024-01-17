@@ -7,7 +7,7 @@ function getMovieCharacters (movieId) {
   const movieUrl = `${baseUrl}${movieId}/`;
 
   request.get(movieUrl, (error, response, movieData) => {
-    if (error || response.statusCode !== 200) {
+    if (error) {
       return;
     }
 
@@ -15,7 +15,7 @@ function getMovieCharacters (movieId) {
 
     charactersUrlList.forEach(characterUrl => {
       request.get(characterUrl, (error, response, characterData) => {
-        if (error || response.statusCode !== 200) {
+        if (error) {
           return;
         }
 
