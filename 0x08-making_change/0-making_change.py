@@ -23,23 +23,15 @@ def makeChange(coins, total):
     coins.sort()
     num_coin_types = len(coins)
 
-    min_coins_table = [[float('inf')] * (total + 1)
-                       for _ in range(num_coin_types + 1)]
-
-    for i in range(num_coin_types + 1):
-        min_coins_table[i][0] = 0
+    min_coins_table = [float('inf')] * (total + 1)
+    min_coins_table[0] = 0
 
     for i in range(1, num_coin_types + 1):
-        for j in range(1, total + 1):
-            current_coin_value = coins[i - 1]
-            if current_coin_value > j:
-                min_coins_table[i][j] = min_coins_table[i - 1][j]
-            else:
-                min_coins_table[i][j] = min(
-                        min_coins_table[i - 1][j],
-                        1 + min_coins_table[i][j - current_coin_value]
-                        )
+        for j in range(coins[i - 1], total + 1):
+            min_coins_table[j] = min(
+                    min_coins_table[j],
+                    1 + min_coins_table[j - coins[i - 1]])
 
-    result = min_coins_table[num_coin_types][total]
+    result = min_coins_table[total]
 
     return result if result != float('inf') else -1
