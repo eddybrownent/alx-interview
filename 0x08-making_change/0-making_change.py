@@ -11,13 +11,13 @@ def makeChange(coins, total):
 
     Parameters:
               coins: List of coin denominations.
-              target_amount: The desired total amount to make up
+              total: The desired total amount to make up
 
     Returns:
           int: minimum num of coins to make up the target amount.
                else Returns -1 if it's not possible
     """
-    if total == 0:
+    if total <= 0:
         return 0
 
     coins.sort()
@@ -26,11 +26,11 @@ def makeChange(coins, total):
     min_coins_table = [float('inf')] * (total + 1)
     min_coins_table[0] = 0
 
-    for i in range(1, num_coin_types + 1):
-        for j in range(coins[i - 1], total + 1):
+    for i in range(num_coin_types):
+        for j in range(coins[i], total + 1):
             min_coins_table[j] = min(
                     min_coins_table[j],
-                    1 + min_coins_table[j - coins[i - 1]])
+                    1 + min_coins_table[j - coins[i]])
 
     result = min_coins_table[total]
 
