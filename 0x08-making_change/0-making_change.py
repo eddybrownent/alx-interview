@@ -3,6 +3,7 @@
 This Module determines the fewest num of
 coins needed to meet a given amount
 """
+import time
 
 
 def makeChange(coins, total):
@@ -33,5 +34,7 @@ def makeChange(coins, total):
                     1 + min_coins_table[j - coins[i]])
 
     result = min_coins_table[total]
+
+    time.sleep(3)
 
     return result if result != float('inf') else -1
