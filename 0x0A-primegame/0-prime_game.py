@@ -52,10 +52,10 @@ def isWinner(x, nums):
     player_maria = 0
     player_ben = 0
 
-    if x < 1 or not nums:
+    if not isinstance(x, int):
         return None
 
-    if not isinstance(nums, list):
+    if x < 1 or not nums:
         return None
 
     for n in nums:
