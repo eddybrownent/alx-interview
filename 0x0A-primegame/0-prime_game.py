@@ -52,6 +52,9 @@ def isWinner(x, nums):
     player_maria = 0
     player_ben = 0
 
+    if x < 1 or not nums:
+        return None
+
     for n in nums:
         x = sum(1 for i in range(2, n + 1) if is_prime(i))
 
