@@ -55,9 +55,7 @@ def isWinner(x, nums):
     if x < 1 or not nums:
         return None
 
-    if not isinstance(
-        nums, list) or not all(isinstance(
-            n, int) and n > 0 for n in nums):
+    if not isinstance(nums, list):
         return None
 
     for n in nums:
