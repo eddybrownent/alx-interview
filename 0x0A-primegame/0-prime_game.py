@@ -55,6 +55,11 @@ def isWinner(x, nums):
     if x < 1 or not nums:
         return None
 
+    if not isinstance(
+        nums, list) or not all(isinstance(
+            n, int) and n > 0 for n in nums):
+        return None
+
     for n in nums:
         x = sum(1 for i in range(2, n + 1) if is_prime(i))
 
